@@ -115,7 +115,7 @@ endfunction
 "source ~/.vim/alternate.vim
 "source ~/.vim/ruby_helpers.vim
 "source ~/.vim/coffee_helpers.vim
-source ~/.vim/clipboard.vim
+source ./clipboard.vim
 
 " toggle line numbers, wrapping, etc.
 map <leader>tn :set invnumber<CR>
