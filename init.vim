@@ -1,12 +1,24 @@
 set nocompatible
 filetype off
 
+" Let <Tab> also do completion
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'kien/ctrlp.vim'
+"Plug 'Shougo/neosnippet'
+Plug 'SirVer/ultisnips'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neco-syntax'
+Plug 'steelsojka/deoplete-flow'
+" causes deoplete list to fuck up
+" Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 " Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 " Plug 'vim-syntastic/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -14,8 +26,8 @@ Plug 'wavded/vim-stylus'
 Plug 'benekastah/neomake'
 " Plug 'flowtype/vim-flow'
 Plug 'ap/vim-css-color'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -50,13 +62,44 @@ set expandtab
 set shiftwidth=2
 set exrc
 set secure
+set nottimeout
+set termguicolors
+set cursorline
 
 let $JS_CMD='node'
 " autocmd BufWritePost *.js Neomake
-let g:airline_theme='distinguished'
+" let g:airline_theme='distinguished'
+let g:airline_powerline_fonts=1
+
 
 set wildignore+=*.class,.git,*.jar,tmp,.DS_Store,.jhw-cache,node_modules
 " let g:CommandTMaxHeight=20
+
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+let g:UltiSnipsExpandTrigger="<C-j>"
+"call deoplete#enable()
+"call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+"
+" tern
+if exists('g:plugs["tern_for_vim"]')
+  let g:tern_show_argument_hints = 'on_hold'
+  let g:tern_show_signature_in_pum = 1
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+
+if g:flow_path != 'flow not found'
+  let g:deoplete#sources#flow#flow_bin = g:flow_path
+endif
 
 " Enable syntax checking
 " let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
@@ -66,7 +109,9 @@ set wildignore+=*.class,.git,*.jar,tmp,.DS_Store,.jhw-cache,node_modules
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 
-set omnifunc=syntaxcomplete#Complete
+"let g:UltiSnipsExpandTrigger="<C-j>"
+
+"set omnifunc=syntaxcomplete#Complete
 
 " JSX in JS files
 let g:jsx_ext_required = 0
@@ -90,9 +135,8 @@ let mapleader = ","
 " make uses real tabs
 au FileType make set noexpandtab
 
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=Blue guibg=Blue
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=Blue guibg=Blue
 autocmd! BufWritePost * Neomake
 
 " source ~/.vim/color_settings.vim
@@ -115,7 +159,7 @@ endfunction
 "source ~/.vim/alternate.vim
 "source ~/.vim/ruby_helpers.vim
 "source ~/.vim/coffee_helpers.vim
-source ./clipboard.vim
+source ~/.config/nvim/clipboard.vim
 
 " toggle line numbers, wrapping, etc.
 map <leader>tn :set invnumber<CR>
@@ -182,11 +226,16 @@ function! SuperCleverTab()
   if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
     return "\<Tab>"
   else
-    return "\<C-N>"
+    "return "\<C-N>"
   endif
 endfunction
 
-imap <Tab> <C-R>=SuperCleverTab()<cr>
+"imap <Tab> <C-R>=SuperCleverTab()<cr>
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ,k = ack for word under cursor
 nmap <leader>k :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ag "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
@@ -198,7 +247,7 @@ vmap <leader>k y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ag "<C-R>=
 
 " change tmux pane settings
 " nmap <leader>es :call Tmux_Vars()<CR>
-colorscheme night
+colorscheme davenight
 
 function! StrTrim(txt)
   return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
@@ -241,3 +290,6 @@ noremap <leader>ml :Neomake eslint<CR>
 noremap <leader>mf :Neomake! flow<CR>
 
 let g:neomake_open_list=2
+inoremap jj <Esc>
+
+
