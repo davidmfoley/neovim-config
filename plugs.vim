@@ -22,6 +22,9 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'ap/vim-css-color'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " let g:airline#extensions#ale#enabled = 1

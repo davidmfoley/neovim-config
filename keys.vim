@@ -15,16 +15,18 @@ map <leader>tn :set invnumber<CR>
 map <leader>tw :set nowrap!<CR>
 
 "Searching
-map <leader>gr :FilenameSearch<cr>
-map <leader>gs :Rg<cr>
+map <leader>gr :Telescope find_files<cr>
+map <leader>gs :Telescope live_grep<cr>
 map <leader>gg :BCommits<cr>
 map <leader>gb :Buffers<cr>
-map <leader>gu :CtrlPMRU<cr>
 
 " ,k = ack for word under cursor
-nmap <leader>k :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Rg <C-R><C-W><CR><CR>
+nmap <leader>k :Telescope grep_string<cr>
+" nmap <leader>k :Telescope grep_string
 "nnoremap <leader>k :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Rg <C-R>=escape(@", '\\"#')<CR><CR>
-vmap <leader>k y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Rg <C-R>=escape(@", '\\"#')<CR><CR>
+vmap <leader>k y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:Telescope live_grep<CR><C-R>=escape(@", '\\"#')<CR><CR>
+" vmap <leader>k y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:Telescope live_grep<cr>=escape(@", '\\"#')
+
 
 " Format all
 map <leader>fa mzggVG=`z

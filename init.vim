@@ -9,6 +9,7 @@ source ~/.config/nvim/typescript.vim
 source ~/.config/nvim/keys.vim
 source ~/.config/nvim/clipboard.vim
 source ~/.config/nvim/fzf.vim
+source ~/.config/nvim/telescope.lua
 
 let loaded_netrwPlugin=1
 
