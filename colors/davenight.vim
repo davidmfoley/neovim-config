@@ -154,3 +154,4 @@ hi FileSourceScss  guifg=#ffff66
 
 hi FileSourceLog  guifg=#3388ff
 
+hi Conceal guifg=#FF2222 guibg=#000 gui=BOLD
