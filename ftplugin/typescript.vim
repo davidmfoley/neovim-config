@@ -5,9 +5,9 @@ endif
 
 let b:did_ftplugin_dave = '1'
 
-let b:ale_linters = ['eslint', 'tsserver']
-let b:ale_fixers = ['eslint', 'prettier']
-let b:ale_fix_on_save = 1
+" let b:ale_linters = ['eslint', 'tsserver']
+" let b:ale_fixers = ['eslint', 'prettier']
+" let b:ale_fix_on_save = 1
 
 setlocal suffixesadd=.ts,.tsx
 

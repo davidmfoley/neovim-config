@@ -46,7 +46,7 @@ map <leader>lp :lprevious<cr>
 
 map <C-J> coc#float#has_scroll() ? coc#float#scroll(1) : :cn<CR>
 map <C-K> coc#float#has_scroll() ? coc#float#scroll(1) : :cp<CR>
-
+nmap <F2> <Plug>(coc-rename)<CR>
 " ,hc: show syntax highlight rule for token under cursor 
 nnoremap <leader>hc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
