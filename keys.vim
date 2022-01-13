@@ -15,10 +15,22 @@ map <leader>tn :set invnumber<CR>
 map <leader>tw :set nowrap!<CR>
 
 "Searching
-map <leader>gr :Telescope find_files<cr>
+map <leader>gf :Telescope git_files<cr>
+map <leader>gF :Telescope find_files<cr>
 map <leader>gs :Telescope live_grep<cr>
-map <leader>gg :BCommits<cr>
-map <leader>gb :Buffers<cr>
+map <leader>gG :Telescope git_commits<cr>
+map <leader>gg :Telescope git_bcommits<cr>
+map <leader>gb :Telescope buffers<cr>
+
+" coc telescopes
+map <leader>gr :Telescope coc references<cr>
+map <leader>gt :Telescope coc type_definitions<cr>
+map <leader>gp :Telescope coc diagnostics<cr>
+map <leader>gd :Telescope coc definitions<cr>
+map <leader>gl :Telescope coc locations<cr>
+map <leader>gv :Telescope coc document_symbols<cr>
+" problems: workspace diagnostics
+map <leader>gp :Telescope coc workspace_diagnostics<cr>
 
 " ,k = ack for word under cursor
 nmap <leader>k :Telescope grep_string<cr>
@@ -46,7 +58,8 @@ map <leader>lp :lprevious<cr>
 
 map <C-J> coc#float#has_scroll() ? coc#float#scroll(1) : :cn<CR>
 map <C-K> coc#float#has_scroll() ? coc#float#scroll(1) : :cp<CR>
-nmap <F2> <Plug>(coc-rename)<CR>
+
+nmap <leader>rn <Plug>(coc-rename)
 " ,hc: show syntax highlight rule for token under cursor 
 nnoremap <leader>hc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 

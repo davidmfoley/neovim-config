@@ -22,6 +22,7 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
 
 call plug#end()
 
