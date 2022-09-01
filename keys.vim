@@ -59,7 +59,13 @@ map <leader>lp :lprevious<cr>
 map <C-J> coc#float#has_scroll() ? coc#float#scroll(1) : :cn<CR>
 map <C-K> coc#float#has_scroll() ? coc#float#scroll(1) : :cp<CR>
 
+" r: refactor, rename, etc.
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ra <Plug>(coc-actions)
+vmap <leader>ra :'<,'>CocAction<CR>
+xmap <leader>rs <Plug>(coc-convert-snippet)
+nnoremap <leader>ff <Plug>(coc-codeaction-cursor)
+
 " ,hc: show syntax highlight rule for token under cursor 
 nnoremap <leader>hc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -100,4 +106,3 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "let g:UltiSnipsExpandTrigger="<C-j>"
 
 " COC
-nnoremap <leader>ff :CocFix<CR>
